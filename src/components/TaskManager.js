@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../config';
 import TaskForm from './TaskForm';
@@ -13,13 +13,7 @@ function TaskManager() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  useEffect(() => {
-    fetchTasks();
-    fetchCategories();
-    fetchTags();
-  }, [filter, sortBy, searchTerm, selectedCategory]);
-
-  const fetchTasks = async () => {
+  const fetchTasks = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
       let url = `${baseUrl}/tasks/?ordering=${sortBy}`;
@@ -39,7 +33,13 @@ function TaskManager() {
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
-  };
+  }, [sortBy, filter, searchTerm, selectedCategory, baseUrl]);
+
+  useEffect(() => {
+    fetchTasks();
+    fetchCategories();
+    fetchTags();
+  }, [filter, sortBy, searchTerm, selectedCategory, fetchTasks]);
 
   const fetchCategories = async () => {
     try {

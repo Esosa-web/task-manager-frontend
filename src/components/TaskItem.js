@@ -14,7 +14,6 @@ const getContrastColor = (hexColor) => {
 function TaskItem({ task, onUpdate, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
-  const [category, setCategory] = useState(null);
 
   useEffect(() => {
     if (task.category) {
