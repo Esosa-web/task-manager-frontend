@@ -14,6 +14,7 @@ const getContrastColor = (hexColor) => {
 function TaskItem({ task, onUpdate, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
+  const [taskCategory, setTaskCategory] = useState(null);
 
   useEffect(() => {
     if (task.category) {
@@ -27,7 +28,7 @@ function TaskItem({ task, onUpdate, onDelete }) {
       const response = await axios.get(`${baseUrl}/categories/${categoryId}/`, {
         headers: { Authorization: `Token ${token}` }
       });
-      setCategory(response.data);
+      setTaskCategory(response.data);
     } catch (error) {
       console.error('Error fetching category:', error);
     }
@@ -41,7 +42,7 @@ function TaskItem({ task, onUpdate, onDelete }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'due_date') {
-      const [_, currentTime] = editedTask.due_date.split('T');
+      const [unused, currentTime] = editedTask.due_date.split('T');
       setEditedTask({ ...editedTask, due_date: `${value}T${currentTime || '00:00'}` });
     } else {
       setEditedTask({ ...editedTask, [name]: value });
@@ -126,12 +127,12 @@ function TaskItem({ task, onUpdate, onDelete }) {
               {priorityLabels[task.priority]}
             </span>
             <span className="text-sm bg-blue-200 text-blue-800 px-2 py-1 rounded-full">{task.status}</span>
-            {category && (
+            {taskCategory && (
               <span 
                 className="text-sm px-2 py-1 rounded-full" 
-                style={{ backgroundColor: category.color, color: getContrastColor(category.color) }}
+                style={{ backgroundColor: taskCategory.color, color: getContrastColor(taskCategory.color) }}
               >
-                {category.name}
+                {taskCategory.name}
               </span>
             )}
           </div>
