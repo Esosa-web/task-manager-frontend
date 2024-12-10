@@ -33,7 +33,7 @@ function TaskManager() {
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
-  }, [sortBy, filter, searchTerm, selectedCategory, baseUrl]);
+  }, [sortBy, filter, searchTerm, selectedCategory]);
 
   useEffect(() => {
     fetchTasks();

@@ -42,7 +42,7 @@ function TaskItem({ task, onUpdate, onDelete }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'due_date') {
-      const [unused, currentTime] = editedTask.due_date.split('T');
+      const currentTime = editedTask.due_date.split('T')[1];
       setEditedTask({ ...editedTask, due_date: `${value}T${currentTime || '00:00'}` });
     } else {
       setEditedTask({ ...editedTask, [name]: value });

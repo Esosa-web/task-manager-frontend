@@ -25,9 +25,14 @@ function Navbar({ isLoggedIn, onLogout }) {
                 </button>
               </>
             ) : (
-              <Link to="/login" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-                Login
-              </Link>
+              <div className="flex items-center space-x-4">
+                <Link to="/register" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                  Register
+                </Link>
+                <Link to="/login" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                  Login
+                </Link>
+              </div>
             )}
           </div>
         </div>

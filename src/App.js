@@ -5,6 +5,7 @@ import HomePage from './components/HomePage';
 import Login from './components/Login';
 import TaskManager from './components/TaskManager';
 import CategoryManager from './components/CategoryManager';
+import Register from './components/Register';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -62,6 +63,7 @@ function App() {
               path="/categories"
               element={isLoggedIn ? <CategoryManager /> : <Navigate to="/login" replace />}
             />
+            <Route path="/register" element={<Register onRegisterSuccess={handleLoginSuccess} />} />
           </Routes>
         </div>
       </div>
